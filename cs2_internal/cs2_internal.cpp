@@ -167,7 +167,7 @@ void registr(std::string overlay_name)
     SetNextWindowCentered(0.13);
     ImGui::Begin(overlay_name.c_str(), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
 
-    overlay.center_text(xorstr_("Register Account"));
+    overlay.center_text(xorstr_("Athena Development"));
     overlay.spacer();
 
     static char username[64] = "";
