@@ -68,6 +68,8 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ---
 
+> **Disclaimer:** If you use your own version of keyauth, i believe you have to disable the modify thread in the keyauth-cpp-library for dll's to work
+
 ## TODO
 - Add Features Lol (rn its barebones, but the offsets that it has rn are enough to make glow esp with.)
 
