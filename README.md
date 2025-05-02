@@ -2,41 +2,41 @@
 
 An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and adaptability in mind. This project blends internal and external cheat methodologies, combining high performance with strong anti-detection techniques.
 
-> ⚠️ **Disclaimer:** This project is for educational purposes only. I do not condone cheating in multiplayer games. Use at your own risk.
+> **Disclaimer:** This project is for educational purposes only. I do not condone cheating in multiplayer games. Use at your own risk.
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔐 Security & Stealth
+### Security & Stealth
 - **PE Header Wiping:** Erases PE headers post-injection to prevent memory scanning.
 - **Unlink From PEB Lists:** Unlinks the module from the process's loader lists (InLoadOrder, InMemoryOrder, InInitializationOrder).
 - **Debug Directory Wipe:** Clears debug information from the module to obscure its presence.
 - **Import Table Wipe:** Removes import descriptors after resolving them to avoid static analysis.
 - **Spoofed Execution Thread:** Creates a fake thread under the target process to evade thread-based detection.
 
-### 🧠 Auto-Offset Management
+### Auto-Offset Management
 - **Offset Auto-Updater:** Uses pattern an external offset dump service to always stay updated with the latest CS2 structures and addresses.
 
-### 🧬 Hybrid Injection Design
+### Hybrid Injection Design
 - **Internal/External Fusion:**
   - Supports DLL injection into target processes with stealthy memory and thread manipulation.
   - Automatically hijacks a valid handle from the target (e.g., CS2) and duplicates it to prevent permission issues.
   - Cleanly manages thread execution within the spoofed context of the target process.
 
-### 🖼️ Undetectable Overlay
+### Undetectable Overlay
 - **Usermode Overlay Rendering:** Utilizes a stealth overlay method that avoids typical detection vectors used by anti-cheats (e.g., no window hooks, layered window obfuscation).
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 - Windows 10/11 x64
 - Administrator privileges (for handle and memory operations)
 - Visual Studio 2022 (C++17 or higher)
 
 ---
 
-## 🧪 Injection Modes
+## Injection Modes
 
 | Mode        | Description                                                                 |
 |-------------|-----------------------------------------------------------------------------|
@@ -46,7 +46,7 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ---
 
-## 🚀 Usage
+## Usage
 
 1. **Build** the solution using Visual Studio.
 2. **Launch CS2** and leave it running.
