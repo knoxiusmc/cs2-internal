@@ -50,7 +50,7 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ## Injection Methods
 - Use [Extreme Injectr](https://github.com/master131/ExtremeInjector) or [Xenos x64](https://github.com/DarthTon/Xenos) for injecting the dll. Sometimes injections are buggy and can cause it to crash.
-- *Crashes* are common. I threw this together in a day. Ill go back through and fix code sometime haha.
+*Crashes are common. I threw this together in a day. Ill go back through and fix code sometime haha.*
 
 
 ---
