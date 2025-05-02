@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# build directories
+**/x64
+**/x86
