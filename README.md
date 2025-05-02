@@ -72,7 +72,7 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 - Add Features Lol (rn its barebones, but the offsets that it has rn are enough to make glow esp with.)
 
 ## Credits
-- **a2x:** for his amazing code -> https://github.com/a2x/cs2-dumper
-- **t0ughknuckle:** for portions of his code i used to make my auto-updater -> https://github.com/t0ughknuckles/cs2-offset-auto-updater
-- **Roll-Commits:** for his usermode overlay bypass -> https://github.com/Roll-Commits/CreateWindow-Bypass
-- **Me:** for my ability to hack together code from a c# program that i completely didnt fkin understand + having any sanity left after dealing with undocumented structures and apis all day.
+- **a2x:** for his amazing code thats been keeping chairs alive https://github.com/a2x/cs2-dumper
+- **t0ughknuckle:** for portions of his code i used to make my auto-updater https://github.com/t0ughknuckles/cs2-offset-auto-updater
+- **Roll-Commits:** for his usermode overlay bypass https://github.com/Roll-Commits/CreateWindow-Bypass
+- **Me:** for my ability to hack together code from a c# program that i completely didnt fkin understand & having any sanity left after dealing with undocumented structures and apis all day.
