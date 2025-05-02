@@ -13,8 +13,8 @@
 
 using namespace KeyAuth;
 
-std::string name = xorstr_("Athena Development");
-std::string ownerid = xorstr_("KVcBaFEZ9z");
+std::string name = xorstr_("");
+std::string ownerid = xorstr_("");
 std::string version = xorstr_("1.0");
 std::string url = xorstr_("https://keyauth.win/api/1.3/");
 std::string path = xorstr_("");
