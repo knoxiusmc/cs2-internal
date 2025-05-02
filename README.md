@@ -42,11 +42,13 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ## Injection Modes
 
-
-| Hybrid      | Injects a DLL directly into the CS2 process and read/write memory externally using a handle that belongs to the game.
-| External    | Executes core logic from a separate process using a handle that belongs to the game.
-|-------------|----------------------------------------------------------------------------------------------
-| Fallback    | Capable of many configurations including fallback to OpenProcess if a handle cant be hijacked
+| Mode        | Description                                                                                                           |
+|-------------|-----------------------------------------------------------------------------------------------------------------------|
+| Hybrid      | Injects a DLL directly into the CS2 process and read/write memory externally using a handle that belongs to the game. |
+| External    | Executes core logic from a separate process using a handle that belongs to the game.                                  |
+|-------------|-----------------------------------------------------------------------------------------------------------------------|
+| Fallback    | Capable of many7 configurations including fallback to OpenProcess if a handle cant be hijacked                        |
+|-------------|-----------------------------------------------------------------------------------------------------------------------|
 ---
 
 ## Usage
