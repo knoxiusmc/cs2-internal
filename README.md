@@ -20,7 +20,7 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 - **Streamproof:** Fully Streamproof et all times, including startup.
 
 ### Auto-Offset Management
-- **Offset Auto-Updater:** Uses pattern an external offset dump service to always stay updated with the latest CS2 structures and addresses.
+- **Offset Auto-Updater:** Uses an [a2x dumper](https://github.com/a2x/cs2-dumper) to always stay updated with the latest CS2 structures and addresses.
 
 ### Hybrid Injection Design
 - **Internal/External Fusion:**
@@ -70,3 +70,9 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ## TODO
 - Add Features Lol (rn its barebones, but the offsets that it has rn are enough to make glow esp with.)
+
+## Credits
+- **a2x:** for his amazing code -> https://github.com/a2x/cs2-dumper
+- **t0ughknuckle:** for portions of his code i used to make my auto-updater -> https://github.com/t0ughknuckles/cs2-offset-auto-updater
+- **Roll-Commits:** for his usermode overlay bypass -> https://github.com/Roll-Commits/CreateWindow-Bypass
+- **Me:** for my ability to hack together code from a c# program that i completely didnt fkin understand + having any sanity left after dealing with undocumented structures and apis all day.
