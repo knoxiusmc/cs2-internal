@@ -8,12 +8,16 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ## Features
 
+### Keyauth Login System
+- **Keyauth Library:** Uses the keyauth library to provider a user login system. So far thats all there is for keyauth.
+
 ### Security & Stealth
 - **PE Header Wiping:** Erases PE headers post-injection to prevent memory scanning.
 - **Unlink From PEB Lists:** Unlinks the module from the process's loader lists (InLoadOrder, InMemoryOrder, InInitializationOrder).
 - **Debug Directory Wipe:** Clears debug information from the module to obscure its presence.
 - **Import Table Wipe:** Removes import descriptors after resolving them to avoid static analysis.
 - **Spoofed Execution Thread:** Creates a fake thread under the target process to evade thread-based detection.
+- **Streamproof:** Fully Streamproof et all times, including startup.
 
 ### Auto-Offset Management
 - **Offset Auto-Updater:** Uses pattern an external offset dump service to always stay updated with the latest CS2 structures and addresses.
@@ -38,12 +42,12 @@ An advanced Counter-Strike 2 hybrid cheat designed with stealth, stability, and 
 
 ## Injection Modes
 
-| Mode        | Description                                                                 |
-|-------------|-----------------------------------------------------------------------------|
-| Internal    | Injects a DLL directly into the CS2 process and initializes internally.     |
-| External    | Executes core logic from a separate process using duplicated spoofed handle. |
-| Hybrid      | Uses both internal and external techniques for maximum stealth and control. |
-
+| Mode        | Description                                                                                                           |
+|-------------|-----------------------------------------------------------------------------------------------------------------------|
+| Hybrid      | Injects a DLL directly into the CS2 process and read/write memory externally using a handle that belongs to the game. |
+| External    | Executes core logic from a separate process using a handle that belongs to the game.                                  |
+|-------------|-----------------------------------------------------------------------------------------------------------------------|
+| Fallback    | Capable of many7 configurations including fallback to OpenProcess if a handle cant be hijacked
 ---
 
 ## Usage
