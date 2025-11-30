@@ -98,7 +98,8 @@ private:
 	const char* m_window_name;
 	const char* m_window_class_name;
 
-	WNDCLASSEX m_window_class{};
+	// Explicitly use the ANSI (A) version so char* string literals match
+	WNDCLASSEXA m_window_class{};
 
 	ImVec2 m_window_size{};
 
@@ -235,7 +236,8 @@ public:
 				m_d3d_device = NULL;
 			}
 
-			UnregisterClass(m_window_class.lpszClassName, m_window_class.hInstance);
+			// Ensure we call the ANSI variant since we used WNDCLASSEXA
+			UnregisterClassA(m_window_class.lpszClassName, m_window_class.hInstance);
 
 			Logger::error(xorstr_("Failed to create device"));
 

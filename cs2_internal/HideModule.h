@@ -4,11 +4,22 @@
 #include <vector>
 #include <algorithm>
 
-// Use the Windows SDK's internal types where available (winternl.h)
-// Provide a backward-compatible alias so older code that expects
-// LDR_MODULE/PLDR_MODULE still compiles.
-typedef LDR_DATA_TABLE_ENTRY LDR_MODULE;
-typedef PLDR_DATA_TABLE_ENTRY PLDR_MODULE;
+// Provide a local LDR_MODULE structure that contains the fields used
+// throughout the project. Different Windows SDKs sometimes give
+// slightly different field names for internal loader types; using a
+// local type here keeps the code stable across SDKs.
+typedef struct _LDR_MODULE
+{
+    LIST_ENTRY InLoadOrderLinks;
+    LIST_ENTRY InMemoryOrderLinks;
+    LIST_ENTRY InInitializationOrderLinks;
+    PVOID DllBase;
+    PVOID EntryPoint;
+    ULONG SizeOfImage;
+    UNICODE_STRING FullDllName;
+    UNICODE_STRING BaseDllName;
+} LDR_MODULE, *PLDR_MODULE;
+
 
 typedef struct _UNLINKED_MODULE
 {

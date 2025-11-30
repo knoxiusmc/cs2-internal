@@ -46,9 +46,9 @@ void UnlinkModuleFromPEB(HMODULE hModule)
 #else
 	PPEB pPEB = (PPEB)__readfsdword(0x30);
 #endif
-	PLIST_ENTRY CurrentEntry = pPEB->Ldr->InLoadOrderLinks.Flink;
+	PLIST_ENTRY CurrentEntry = pPEB->Ldr->InLoadOrderModuleList.Flink;
 	PLDR_MODULE Current = NULL;
-	while (CurrentEntry != &pPEB->Ldr->InLoadOrderLinks && CurrentEntry != NULL)
+	while (CurrentEntry != &pPEB->Ldr->InLoadOrderModuleList && CurrentEntry != NULL)
 	{
 		Current = CONTAINING_RECORD(CurrentEntry, LDR_MODULE, InLoadOrderLinks);
 		if (Current->DllBase == hModule)
@@ -85,8 +85,8 @@ void EraseModuleFromModuleList(HMODULE hModule)
 		return;
 
 	// Wipe module from all three lists thoroughly
-	PLIST_ENTRY Current = pPEB->Ldr->InMemoryOrderLinks.Flink;
-	while (Current != &pPEB->Ldr->InMemoryOrderLinks)
+	PLIST_ENTRY Current = pPEB->Ldr->InMemoryOrderModuleList.Flink;
+	while (Current != &pPEB->Ldr->InMemoryOrderModuleList)
 	{
 		PLDR_MODULE Module = CONTAINING_RECORD(Current, LDR_MODULE, InMemoryOrderLinks);
 		if (Module->DllBase == hModule)

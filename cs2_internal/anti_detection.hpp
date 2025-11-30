@@ -253,10 +253,10 @@ namespace AntiDetection
 			if (!pPEB || !pPEB->Ldr) return;
 
 			// Randomize load order by swapping module list entries
-			PLIST_ENTRY entry1 = pPEB->Ldr->InLoadOrderLinks.Flink;
+			PLIST_ENTRY entry1 = pPEB->Ldr->InLoadOrderModuleList.Flink;
 			PLIST_ENTRY entry2 = entry1->Flink;
 
-			if (entry1 != &pPEB->Ldr->InLoadOrderLinks && entry2 != &pPEB->Ldr->InLoadOrderLinks)
+			if (entry1 != &pPEB->Ldr->InLoadOrderModuleList && entry2 != &pPEB->Ldr->InLoadOrderModuleList)
 			{
 				PLIST_ENTRY temp = entry1->Flink;
 				entry1->Flink = entry2->Flink;
