@@ -1,5 +1,5 @@
 #include "HideModule.h"
-#include <xorstr.hpp>
+#include "xorstr.hpp"
 #include <evntprov.h>
 #include <winternl.h>
 #include <psapi.h>

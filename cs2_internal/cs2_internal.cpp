@@ -3,7 +3,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include <xorstr.hpp>
+#include "xorstr.hpp"
 #include "auth.hpp"
 #include "HideModule.h"
 #include "sdk.hpp"

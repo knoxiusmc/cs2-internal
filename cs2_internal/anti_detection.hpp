@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <vector>
 #include <string>
-#include <xorstr.hpp>
+#include "xorstr.hpp"
 #include <tlhelp32.h>
 #include <winternl.h>
 #include <psapi.h>
