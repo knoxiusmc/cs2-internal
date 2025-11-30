@@ -2,8 +2,7 @@ name: Build and Create Prerelease
 
 on:
   push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
 
 jobs:
   build:
