@@ -26,9 +26,9 @@ void RelinkModuleToPEB(HMODULE hModule)
 		return;
 	}
 	UNLINKED_MODULE m = *it;
-	RELINK(m.Entry->InLoadOrderModuleList, m.RealInLoadOrderLinks);
-	RELINK(m.Entry->InInitializationOrderModuleList, m.RealInInitializationOrderLinks);
-	RELINK(m.Entry->InMemoryOrderModuleList, m.RealInMemoryOrderLinks);
+	RELINK(m.Entry->InLoadOrderLinks, m.RealInLoadOrderLinks);
+	RELINK(m.Entry->InInitializationOrderLinks, m.RealInInitializationOrderLinks);
+	RELINK(m.Entry->InMemoryOrderLinks, m.RealInMemoryOrderLinks);
 	UnlinkedModules.erase(it);
 }
 
@@ -46,24 +46,24 @@ void UnlinkModuleFromPEB(HMODULE hModule)
 #else
 	PPEB pPEB = (PPEB)__readfsdword(0x30);
 #endif
-	PLIST_ENTRY CurrentEntry = pPEB->Ldr->InLoadOrderModuleList.Flink;
+	PLIST_ENTRY CurrentEntry = pPEB->Ldr->InLoadOrderLinks.Flink;
 	PLDR_MODULE Current = NULL;
-	while (CurrentEntry != &pPEB->Ldr->InLoadOrderModuleList && CurrentEntry != NULL)
+	while (CurrentEntry != &pPEB->Ldr->InLoadOrderLinks && CurrentEntry != NULL)
 	{
-		Current = CONTAINING_RECORD(CurrentEntry, LDR_MODULE, InLoadOrderModuleList);
-		if (Current->BaseAddress == hModule)
+		Current = CONTAINING_RECORD(CurrentEntry, LDR_MODULE, InLoadOrderLinks);
+		if (Current->DllBase == hModule)
 		{
 			UNLINKED_MODULE CurrentModule = { 0 };
 			CurrentModule.hModule = hModule;
-			CurrentModule.RealInLoadOrderLinks = Current->InLoadOrderModuleList.Blink->Flink;
-			CurrentModule.RealInInitializationOrderLinks = Current->InInitializationOrderModuleList.Blink->Flink;
-			CurrentModule.RealInMemoryOrderLinks = Current->InMemoryOrderModuleList.Blink->Flink;
+			CurrentModule.RealInLoadOrderLinks = Current->InLoadOrderLinks.Blink->Flink;
+			CurrentModule.RealInInitializationOrderLinks = Current->InInitializationOrderLinks.Blink->Flink;
+			CurrentModule.RealInMemoryOrderLinks = Current->InMemoryOrderLinks.Blink->Flink;
 			CurrentModule.Entry = Current;
 			UnlinkedModules.push_back(CurrentModule);
 
-			UNLINK(Current->InLoadOrderModuleList);
-			UNLINK(Current->InInitializationOrderModuleList);
-			UNLINK(Current->InMemoryOrderModuleList);
+			UNLINK(Current->InLoadOrderLinks);
+			UNLINK(Current->InInitializationOrderLinks);
+			UNLINK(Current->InMemoryOrderLinks);
 
 			break;
 		}
@@ -85,11 +85,11 @@ void EraseModuleFromModuleList(HMODULE hModule)
 		return;
 
 	// Wipe module from all three lists thoroughly
-	PLIST_ENTRY Current = pPEB->Ldr->InMemoryOrderModuleList.Flink;
-	while (Current != &pPEB->Ldr->InMemoryOrderModuleList)
+	PLIST_ENTRY Current = pPEB->Ldr->InMemoryOrderLinks.Flink;
+	while (Current != &pPEB->Ldr->InMemoryOrderLinks)
 	{
-		PLDR_MODULE Module = CONTAINING_RECORD(Current, LDR_MODULE, InMemoryOrderModuleList);
-		if (Module->BaseAddress == hModule)
+		PLDR_MODULE Module = CONTAINING_RECORD(Current, LDR_MODULE, InMemoryOrderLinks);
+		if (Module->DllBase == hModule)
 		{
 			// Remove from all lists
 			Current->Blink->Flink = Current->Flink;

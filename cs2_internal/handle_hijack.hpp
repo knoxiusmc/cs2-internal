@@ -34,8 +34,26 @@ typedef NTSYSAPI NTSTATUS(NTAPI* _NtOpenProcess)(
     PHANDLE            ProcessHandle,
     ACCESS_MASK        DesiredAccess,
     POBJECT_ATTRIBUTES ObjectAttributes,
-    PCLIENT_ID         ClientId
+    CLIENT_ID*         ClientId
     );
+
+// SYSTEM_HANDLE / SYSTEM_HANDLE_INFORMATION are not in public headers in this form,
+// define local versions used by NtQuerySystemInformation(SystemHandleInformation,...)
+typedef struct _SYSTEM_HANDLE_ENTRY
+{
+    ULONG ProcessId;
+    BYTE ObjectTypeNumber;
+    BYTE Flags;
+    USHORT Handle;
+    PVOID Object;
+    ACCESS_MASK GrantedAccess;
+} SYSTEM_HANDLE_ENTRY, * PSYSTEM_HANDLE_ENTRY;
+
+typedef struct _SYSTEM_HANDLE_INFORMATION
+{
+    ULONG HandleCount;
+    SYSTEM_HANDLE_ENTRY Handles[1];
+} SYSTEM_HANDLE_INFORMATION, * PSYSTEM_HANDLE_INFORMATION;
 
 typedef NTSTATUS(NTAPI* _NtQuerySystemInformation)(
     ULONG SystemInformationClass,
