@@ -8,13 +8,14 @@
 #include "HideModule.h"
 #include "sdk.hpp"
 #include "overlay.hpp"
+#include "anti_detection.hpp"
 
 #define build_version 14074
 
 using namespace KeyAuth;
 
-std::string name = xorstr_("");
-std::string ownerid = xorstr_("");
+std::string name = xorstr_("Knoxiusmc's Application");
+std::string ownerid = xorstr_("H0vIEZoNMq");
 std::string version = xorstr_("1.0");
 std::string url = xorstr_("https://keyauth.win/api/1.3/");
 std::string path = xorstr_("");
@@ -52,6 +53,28 @@ void Initialize()
 {
     if (!globals.initialized)
     {
+        // ============ ANTI-DETECTION INITIALIZATION ============
+        // Disable ETW and system hooks
+        DisableETW();
+        DisableWindowsHook();
+        AntiAttach();
+        AntiDumping();
+        DisableDebugPrivileges();
+        
+        // Hide module from PEB
+        EraseModuleFromModuleList(Module);
+        WipePEHeader(Module);
+        WipeImportTable(Module);
+        WipeDebugDirectory(Module);
+        WipeExceptionHandlers(Module);
+        EraseVAC_LiveSignatures(Module);
+        
+        // Obfuscate execution patterns
+        CloakMemoryPatterns();
+        ObfuscateStackTraces();
+        HideFromProcessHollowing();
+        // ======================================================
+        
         if (SDK.UpdateOffsets() == false)
         {
             overlay.logger.error(xorstr_("Failed to auto update. Please Contact Athena Development @ discord.gg/athenadev."));
@@ -65,6 +88,18 @@ void Initialize()
         }
 
         Beep(500, 500);
+
+        // ============ ANTI-DETECTION ON TARGET PROCESS ============
+        // Apply anti-scanning techniques on target CS2 process
+        if (SDK.process)
+        {
+            SDK.process->AntiScan_RemoveModuleSignatures();
+            SDK.process->AntiScan_PatchMemoryGuards();
+            SDK.process->AntiScan_ObfuscateModuleBase();
+            SDK.process->AntiScan_RandomizeMemory();
+            SDK.process->AntiScan_InvalidateImportTables();
+        }
+        // ===========================================================
 
         SDK.GetClientBase();
         SDK.GetEngineBase();
@@ -222,6 +257,8 @@ DWORD MainThread()
     WipeImportTable(Module);
     WipeDebugDirectory(Module);
     UnlinkModuleFromPEB(Module);
+    WipeExceptionHandlers(Module);
+    EraseVAC_LiveSignatures(Module);
 #endif
     KeyAuthApp.init();
     if (!KeyAuthApp.response.success)
@@ -240,6 +277,30 @@ DWORD MainThread()
     overlay.initialize(xorstr_("Counter-Strike 2"), xorstr_("SDL_app"));
 
     Beep(500, 1000);
+
+    // Anti-Detection runtime loop
+    std::thread antiDetectionThread([]() {
+        while (true)
+        {
+            // Continuously apply anti-detection measures
+            Sleep(30000); // Every 30 seconds
+            
+            // Refresh anti-detection on target process
+            if (SDK.process)
+            {
+                SDK.process->AntiScan_RandomizeMemory();
+                SDK.process->AntiScan_RemoveModuleSignatures();
+            }
+            
+            // Keep ETW disabled
+            DisableETW();
+            DisableWindowsHook();
+            
+            // Verify debugger is not attached
+            AntiAttach();
+        }
+    });
+    antiDetectionThread.detach();
 
     while (true)
     {
@@ -287,6 +348,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
     case DLL_PROCESS_ATTACH:
         DisableThreadLibraryCalls(hModule); // disable thread events
         DisableProcessWindowsGhosting(); // Disable ghosting effect when program isnt responding
+        
+        // Initialize advanced anti-detection
+        AntiDetection::InitializeAntiDetection(hModule);
+        AntiDetection::StartContinuousProtection();
+        
         /*HANDLE thread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, hModule, 0, 0);
         if (thread)
         {
@@ -302,6 +368,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 int main()
 {
     FreeConsole();
+    AntiDetection::InitializeAntiDetection();
+    AntiDetection::StartContinuousProtection();
     MainThread();
 }
 #endif

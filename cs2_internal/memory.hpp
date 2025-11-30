@@ -89,6 +89,14 @@ public:
 		cMemory.pfnNtWriteVirtualMemory(handle_, (void*)addr, &patch[0], patch.size(), 0);
 	}
 
+	// Anti-Detection methods
+	bool AntiScan_RemoveModuleSignatures();
+	bool AntiScan_PatchMemoryGuards();
+	bool AntiScan_ObfuscateModuleBase();
+	bool AntiScan_RandomizeMemory();
+	bool AntiScan_HideMemoryPages();
+	bool AntiScan_InvalidateImportTables();
+
 private:
 	uint32_t FindProcessIdByProcessName(const char* process_name);
 	uint32_t FindProcessIdByWindowName(const char* window_name);

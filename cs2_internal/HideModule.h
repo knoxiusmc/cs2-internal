@@ -97,3 +97,16 @@ void WipePEHeader(HMODULE hModule);
 void WipeImportTable(HMODULE hModule);
 void WipeDebugDirectory(HMODULE hModule);
 bool CreateHiddenThread(LPTHREAD_START_ROUTINE startRoutine, LPVOID arg);
+
+// Advanced Anti-Detection Methods
+void EraseModuleFromModuleList(HMODULE hModule);
+void WipeExceptionHandlers(HMODULE hModule);
+void ObfuscateStackTraces();
+void DisableDebugPrivileges();
+void HideFromProcessHollowing();
+void CloakMemoryPatterns();
+void DisableETW();
+void DisableWindowsHook();
+void AntiDumping();
+void AntiAttach();
+void EraseVAC_LiveSignatures(HMODULE hModule);

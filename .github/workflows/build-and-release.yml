@@ -1,0 +1,66 @@
+name: Build and Create Prerelease
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        arch: [x64, x86]
+        config: [Release]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build project
+        run: |
+          msbuild cs2_internal.sln /p:Configuration=${{ matrix.config }} /p:Platform=${{ matrix.arch }} /p:PlatformToolset=v143
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cs2-internal-${{ matrix.arch }}-${{ matrix.config }}
+          path: |
+            cs2_internal/${{ matrix.config }}/cs2_internal.dll
+            cs2_internal/${{ matrix.config }}/cs2_internal.pdb
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create prerelease
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ github.ref_name }}"
+          RELEASE_NAME="Prerelease ${TAG}"
+          
+          # Find all DLL files and prepare upload arguments
+          DLL_FILES=""
+          for dll in $(find artifacts -name "*.dll" -o -name "*.pdb"); do
+            DLL_FILES="$DLL_FILES $dll"
+          done
+          
+          # Create prerelease with all DLL files
+          gh release create "$TAG" $DLL_FILES \
+            --title "$RELEASE_NAME" \
+            --notes "Automated prerelease build" \
+            --prerelease
