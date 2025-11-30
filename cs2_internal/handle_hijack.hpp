@@ -1,4 +1,5 @@
-#include <Windows.h> 
+#include <Windows.h>
+#include <winternl.h>
 #include <iostream>
 #include <TlHelp32.h>
 #include <string>
@@ -10,42 +11,7 @@
 #define ProcessHandleType 0x7
 #define SystemHandleInformation 16 
 
-typedef struct _UNICODE_STRING {
-    USHORT Length;
-    USHORT MaximumLength;
-    PWCH   Buffer;
-} UNICODE_STRING, * PUNICODE_STRING;
-
-typedef struct _OBJECT_ATTRIBUTES {
-    ULONG           Length;
-    HANDLE          RootDirectory;
-    PUNICODE_STRING ObjectName;
-    ULONG           Attributes;
-    PVOID           SecurityDescriptor;
-    PVOID           SecurityQualityOfService;
-}  OBJECT_ATTRIBUTES, * POBJECT_ATTRIBUTES;
-
-typedef struct _CLIENT_ID
-{
-    PVOID UniqueProcess;
-    PVOID UniqueThread;
-} CLIENT_ID, * PCLIENT_ID;
-
-typedef struct _SYSTEM_HANDLE_TABLE_ENTRY_INFO
-{
-    ULONG ProcessId;
-    BYTE ObjectTypeNumber;
-    BYTE Flags;
-    USHORT Handle;
-    PVOID Object;
-    ACCESS_MASK GrantedAccess;
-} SYSTEM_HANDLE, * PSYSTEM_HANDLE;
-
-typedef struct _SYSTEM_HANDLE_INFORMATION
-{
-    ULONG HandleCount;
-    SYSTEM_HANDLE Handles[1];
-} SYSTEM_HANDLE_INFORMATION, * PSYSTEM_HANDLE_INFORMATION;
+// Use Windows SDK / NT headers for these types (winternl.h, ntdef/ntifs), do not re-declare them
 
 typedef NTSTATUS(NTAPI* _NtDuplicateObject)(
     HANDLE SourceProcessHandle,
