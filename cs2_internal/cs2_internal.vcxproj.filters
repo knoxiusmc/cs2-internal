@@ -30,6 +30,9 @@
     <ClCompile Include="cs2_internal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="xorstr.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="memory.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
