@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="auth.hpp" />
+    <ClInclude Include="xorstr.hpp" />
     <ClInclude Include="AutoUpdater.hpp" />
     <ClInclude Include="handle_hijack.hpp" />
     <ClInclude Include="HideModule.h" />
